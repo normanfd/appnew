@@ -7,7 +7,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Daftar Guru</title>
+		<title>Daftar Siswa</title>
 		<!-- BOOTSTRAP 4-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
         <!-- DATATABLES BS 4-->
@@ -44,6 +44,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">File Laporan</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../guru/index.php">Guru</a>
+                </li>
                 </ul>
                 <!-- <span class="navbar-text">
                 Navbar text with an inline element
@@ -52,9 +55,6 @@
             </div>
             </nav>
             <div class="card">
-                <!-- <div class="card-header">
-                    Daftar Guru
-                </div> -->
                 <div class="card-body">
                     <div class="row">
                     <div class="col-lg-12">
@@ -65,46 +65,46 @@
                         <br/><br/>
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Data Guru</h4>
+                                <h4 class="card-title">Data Siswa</h4>
                             </div>
                             <div class="card-body">
                                 <table class="table table-hover table-bordered" id="mytable" style="margin-top: 10px">
                                     <thead>
                                         <tr>
                                             <th width="50px">No</th>
-                                            <th>NIP</th>
-                                            <th>Nama Guru</th>
+                                            <th>NISN</th>
+                                            <th>Nama Siswa</th>
                                             <th>Tempat Tgl Lahir</th>
                                             <th>Alamat</th>
                                             <th>Telepon</th>
-                                            <th>Mapel</th>
+                                            <th>Kelas</th>
                                             <th style="text-align: center;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                         $no=1;
-                                        $hasil = $proses->tampil_data_guru();
+                                        $hasil = $proses->tampil_data_siswa();
                                         foreach($hasil as $isi){
                                     ?>
                                         <tr>
                                             <td><?php echo $no; ?></td>
-                                            <td><?php echo $isi['nip']?></td>
-                                            <td><?php echo $isi['nama_guru'];?></td>
-                                            <td><?php echo $isi['tmp_lahir_guru']; echo $isi['tgl_lahir_guru'];?></td>
+                                            <td><?php echo $isi['nisn']?></td>
+                                            <td><?php echo $isi['nama_siswa'];?></td>
+                                            <td><?php echo $isi['tmp_lahir']; echo $isi['tgl_lahir'];?></td>
                                             <td><?php echo $isi['alamat'];?></td>
                                             <td><?php echo $isi['telp'];?></td>
-                                            <td><?php echo $isi['nama_matpel'];?></td>
-                                                <!-- <?php $jancuy= $_SESSION['ADMIN']['role'] ?> -->
-                                                <?php if ( $_SESSION['ADMIN']['role'] == 1 || $_SESSION['ADMIN']['role'] == 2): ?>
+                                            <td><?php echo $isi['nama_kelas'];?></td>
+                                            <!-- <?php $jancuy= $_SESSION['ADMIN']['role'] ?> -->
+                                            <?php if ( $_SESSION['ADMIN']['role'] == 1): ?>
                                                 <td style="text-align: center;">
-                                                    <a href="edit.php?id=<?php echo $isi['id_guru'];?>" class="btn btn-success btn-md">
+                                                    <a href="edit.php?id=<?php echo $isi['id_siswa'];?>" class="btn btn-success btn-md">
                                                     <span class="fa fa-edit"></span></a>
-                                                    <a onclick="return confirm('Apakah yakin data akan di hapus?')" href="../proses/crud.php?aksi=hapus_guru&hapusid=<?php echo $isi['id_guru'];?>" 
+                                                    <a onclick="return confirm('Apakah yakin data akan di hapus?')" href="../proses/crud.php?aksi=hapus_siswa&hapusid=<?php echo $isi['id_siswa'];?>" 
                                                     class="btn btn-danger btn-md"><span class="fa fa-trash"></span></a>
                                                 </td>
-                                            <?php else: ?>
-                                                <td>Ga ada Akses Cuy</td>
+                                            <?php else:?>
+                                                <td>noob</td>
                                             <?php endif; ?>
                                         </tr>
                                     <?php

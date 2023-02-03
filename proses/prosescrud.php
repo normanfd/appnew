@@ -65,7 +65,7 @@ class prosesCrud {
         foreach($toBind as $param => $val){
             $row ->bindValue($param, $val);
         }
-        //Execute our statement (i.e. insert the data).
+        // Execute our statement (i.e. insert the data).
         // try {
         //     $row ->execute();
         // }
@@ -83,8 +83,7 @@ class prosesCrud {
         // https://stackoverflow.com/questions/23019219/creating-generic-update-function-using-php-mysql
         $setPart = array();
         foreach ($data as $key => $value)
-        {
-            $setPart[] = $key."=:".$key;
+        {            $setPart[] = $key."=:".$key;
         }
         $sql = "UPDATE $tabel SET ".implode(', ', $setPart)." WHERE $where = :id";
         $row = $this->db->prepare($sql);
@@ -93,6 +92,15 @@ class prosesCrud {
         foreach($data as $param => $val)
         {
             $row ->bindValue($param, $val);
+        }
+        
+        try {
+            $row ->execute();
+        }
+        
+        catch (Exception $e) {
+            //display custom message
+            echo $e->errorMessage();
         }
         return $row ->execute();
     }
@@ -108,6 +116,16 @@ class prosesCrud {
     function tampil_data_guru()
     {
         $query = "SELECT * FROM guru as a inner join matpel as b on a.id_matpel = b.id_matpel";
+        $row = $this->db->prepare($query);
+        $row->execute();
+        $hasil = $row->fetchAll();
+        return $hasil;
+    }
+
+    // menampilkan daftar siswa
+    function tampil_data_siswa()
+    {
+        $query = "SELECT * FROM siswa as a inner join kelas as b on a.id_kelas = b.id_kelas";
         $row = $this->db->prepare($query);
         $row->execute();
         $hasil = $row->fetchAll();

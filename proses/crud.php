@@ -89,7 +89,7 @@
             session_start();
             $_SESSION['ADMIN'] = $result;
             // status yang diberikan 
-            echo "<script>window.location='../index.php';</script>";
+            echo "<script>window.location='../guru/index.php';</script>";
         }
     }
 
@@ -104,7 +104,6 @@
         $alamat = strip_tags($_POST['alamat']);
         $telp = strip_tags($_POST['telp']);
         $id_matpel = strip_tags($_POST['id_matpel']);
-        $create = strip_tags($_POST['create']);
         
         $tabel = 'guru';
         # proses insert
@@ -129,5 +128,97 @@
         $id = strip_tags($_GET['hapusid']);
         $proses->hapus_data($tabel,$where,$id);
         echo '<script>alert("Hapus Data Berhasil");window.location="../guru/index.php"</script>';
+    }
+
+    // proses tambah siswa
+    if(!empty($_GET['aksi'] == 'tambah_siswa'))
+    {
+        $nisn = strip_tags($_POST['nisn']);
+        $nama_siswa = strip_tags($_POST['nama_siswa']);
+        $tmp_lahir = strip_tags($_POST['tmp_lahir']);
+        $tgl_lahir = strip_tags($_POST['tgl_lahir']);
+        $alamat = strip_tags($_POST['alamat']);
+        $telp = strip_tags($_POST['telp']);
+        $id_kelas = strip_tags($_POST['id_kelas']);
+        
+        $tabel = 'siswa';
+        # proses insert
+        $data[] = array(
+            'nisn'               => $nisn,
+            'nama_siswa'         => $nama_siswa,
+            'tmp_lahir'          => $tmp_lahir,
+            'tgl_lahir'     => $tgl_lahir,
+            'alamat'            => $alamat,
+            'telp'              => $telp,
+            'id_kelas'         => $id_kelas
+        );
+        $proses->tambah_data($tabel,$data);
+        echo '<script>alert("Tambah Data Berhasil");window.location="../siswa/index.php"</script>';
+    }
+
+    // hapus data siswa
+    if(!empty($_GET['aksi'] == 'hapus_siswa'))
+    {
+        $tabel = 'siswa';
+        $where = 'id_siswa';
+        $id = strip_tags($_GET['hapusid']);
+        $proses->hapus_data($tabel,$where,$id);
+        echo '<script>alert("Hapus Data Berhasil");window.location="../siswa/index.php"</script>';
+    }
+
+    // proses edit guru
+	if(!empty($_GET['aksi'] == 'edit_guru'))
+	{
+		$nip = strip_tags($_POST['nip']);
+        $nama_guru = strip_tags($_POST['nama_guru']);
+        $tmp_lahir_guru = strip_tags($_POST['tmp_lahir_guru']);
+        $tgl_lahir_guru = strip_tags($_POST['tgl_lahir_guru']);
+        $alamat = strip_tags($_POST['alamat']);
+        $telp = strip_tags($_POST['telp']);
+        $id_matpel = strip_tags($_POST['id_matpel']);
+
+        $data = array(
+            'nip'               => $nip,
+            'nama_guru'         => $nama_guru,
+            'tmp_lahir_guru'    => $tmp_lahir_guru,
+            'tgl_lahir_guru'    => $tgl_lahir_guru,
+            'alamat'            => $alamat,
+            'telp'              => $telp,
+            'id_matpel'         => $id_matpel
+        );
+
+        $tabel = 'guru';
+        $where = 'id_guru';
+        $id = strip_tags($_POST['id_guru']);
+        $proses->edit_data($tabel,$data,$where,$id);
+        echo '<script>alert("Edit Data Berhasil");window.location="../guru/index.php"</script>';
+    }
+
+    // proses edit siswa
+	if(!empty($_GET['aksi'] == 'edit_siswa'))
+	{
+		$nisn = strip_tags($_POST['nisn']);
+        $nama_siswa = strip_tags($_POST['nama_siswa']);
+        $tmp_lahir = strip_tags($_POST['tmp_lahir']);
+        $tgl_lahir = strip_tags($_POST['tgl_lahir']);
+        $alamat = strip_tags($_POST['alamat']);
+        $telp = strip_tags($_POST['telp']);
+        $id_kelas = strip_tags($_POST['id_kelas']);
+
+        $data = array(
+            'nisn'               => $nisn,
+            'nama_siswa'         => $nama_siswa,
+            'tmp_lahir'          => $tmp_lahir,
+            'tgl_lahir'          => $tgl_lahir,
+            'alamat'            => $alamat,
+            'telp'              => $telp,
+            'id_kelas'         => $id_kelas
+        );
+
+        $tabel = 'siswa';
+        $where = 'id_siswa';
+        $id = strip_tags($_POST['id_siswa']);
+        $proses->edit_data($tabel,$data,$where,$id);
+        echo '<script>alert("Edit Data Berhasil");window.location="../siswa/index.php"</script>';
     }
 ?>
